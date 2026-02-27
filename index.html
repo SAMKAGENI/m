@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hillway Strategies — Government Relations & Political Intelligence</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #212529;
+            background-color: #F8F9FA;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #0B1A33;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: #C4A137;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #0B1A33;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        /* ===== COLOR SYSTEM ===== */
+        .color-blue { color: #1E4A7A; }
+        .color-green { color: #1F5E3A; }
+        .color-red { color: #8B1E1E; }
+        .color-purple { color: #4A2C5F; }
+        .color-orange { color: #B45F2E; }
+        .color-black { color: #2D2D2D; }
+        .color-gold { color: #C4A137; }
+
+        .bg-blue { background-color: #1E4A7A; }
+        .bg-green { background-color: #1F5E3A; }
+        .bg-red { background-color: #8B1E1E; }
+        .bg-purple { background-color: #4A2C5F; }
+        .bg-orange { background-color: #B45F2E; }
+        .bg-black { background-color: #2D2D2D; }
+        .bg-gold { background-color: #C4A137; }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background-color: #0B1A33;
+            color: white;
+            border: 1px solid #0B1A33;
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: #0B1A33;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #0B1A33;
+            border: 1px solid #0B1A33;
+        }
+
+        .btn-outline:hover {
+            background-color: #0B1A33;
+            color: white;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            padding: 1.5rem 0;
+            background-color: white;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0B1A33;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #C4A137;
+            font-weight: 300;
+        }
+
+        nav a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: #212529;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #1E4A7A;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(105deg, #F8F9FA 0%, #FFFFFF 100%);
+            padding: 5rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #4A5568;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .hero-image {
+            background-color: #E9ECEF;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6C757D;
+            font-style: italic;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none"><rect width="100" height="100" fill="%23E9ECEF"/><path d="M0 0 L100 100 M100 0 L0 100" stroke="%23ADB5BD" stroke-width="0.5"/><circle cx="50" cy="50" r="20" fill="none" stroke="%23ADB5BD" stroke-width="1"/></svg>');
+            background-size: cover;
+        }
+
+        /* ===== REGIONAL FOCUS ===== */
+        .regional-focus {
+            background-color: white;
+        }
+
+        .map-container {
+            background-color: #F1F3F5;
+            height: 300px;
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #495057;
+            font-style: italic;
+            position: relative;
+        }
+
+        .country-tags {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .country-tag {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            background-color: #F1F3F5;
+            border-radius: 50px;
+        }
+
+        /* ===== SERVICES ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background-color: white;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .service-card p {
+            color: #495057;
+            font-size: 0.95rem;
+        }
+
+        /* ===== PRACTICE AREAS ===== */
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .practice-item {
+            background-color: white;
+            padding: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .practice-icon {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .practice-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .practice-item p {
+            font-size: 0.9rem;
+            color: #6C757D;
+        }
+
+        /* ===== APPROACH ===== */
+        .approach-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 4rem 0;
+            position: relative;
+        }
+
+        .approach-step {
+            text-align: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: #0B1A33;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .step-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #0B1A33;
+        }
+
+        .step-desc {
+            font-size: 0.85rem;
+            color: #6C757D;
+        }
+
+        /* ===== WHY SECTION ===== */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .why-item {
+            text-align: center;
+        }
+
+        .why-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .why-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .why-item p {
+            font-size: 0.9rem;
+            color: #6C757D;
+        }
+
+        /* ===== ABOUT PAGE ===== */
+        .about-hero {
+            background-color: #0B1A33;
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .about-hero h1 {
+            color: white;
+        }
+
+        .about-hero h1:after {
+            background-color: #C4A137;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .principle-card {
+            background-color: white;
+            padding: 2rem;
+            border-left: 4px solid #C4A137;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #DEE2E6;
+            background-color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+        }
+
+        .contact-info {
+            background-color: white;
+            padding: 2rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .info-item {
+            margin-bottom: 2rem;
+        }
+
+        .info-item h4 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6C757D;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-item p {
+            font-size: 1.1rem;
+            color: #0B1A33;
+        }
+
+        .confidential-note {
+            background-color: #F1F3F5;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            font-style: italic;
+            border-left: 4px solid #C4A137;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: #0B1A33;
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            display: block;
+            color: #ADB5BD;
+            text-decoration: none;
+            margin-bottom: 0.75rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #ADB5BD;
+            font-size: 0.9rem;
+        }
+
+        /* ===== UTILITY ===== */
+        .text-center { text-align: center; }
+        .text-gold { color: #C4A137; }
+        .mt-4 { margin-top: 2rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .divider {
+            width: 60px;
+            height: 3px;
+            background-color: #C4A137;
+            margin: 2rem 0;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .practice-grid { grid-template-columns: repeat(2, 1fr); }
+            .why-grid { grid-template-columns: repeat(3, 1fr); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .hero-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .practice-grid { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .approach-steps { flex-direction: column; gap: 2rem; }
+            nav a { margin-left: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="container header-container">
+        <a href="index.html" class="logo">HILLWAY <span>STRATEGIES</span></a>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#practice">Practice Areas</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ===== HOMEPAGE ===== -->
+<main>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <h1>Navigating Policy. Shaping Outcomes.</h1>
+                <p>Hillway Strategies advises organizations operating across Africa's evolving political and regulatory environments, with a primary focus on Kenya, Tanzania, Uganda, and the broader East African region.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Request Consultation</a>
+                    <a href="#services" class="btn btn-outline">Our Expertise</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- Subtle African institutional visual -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Regional Focus -->
+    <section class="regional-focus">
+        <div class="container">
+            <h2>Our Regional Focus</h2>
+            <div class="map-container">
+                <!-- Simplified map representation -->
+                <div style="text-align: center; color: #0B1A33; font-weight: 500;">
+                    East Africa — Kenya · Tanzania · Uganda
+                </div>
+            </div>
+            <div class="country-tags">
+                <span class="country-tag">🇰🇪 Kenya</span>
+                <span class="country-tag">🇹🇿 Tanzania</span>
+                <span class="country-tag">🇺🇬 Uganda</span>
+                <span class="country-tag">🌍 East Africa</span>
+                <span class="country-tag">🌍 Africa</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" style="background-color: white;">
+        <div class="container">
+            <h2>About Hillway Strategies</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                <div>
+                    <p style="font-size: 1.2rem; color: #0B1A33; margin-bottom: 1.5rem;">Hillway Strategies is an Africa-focused strategic advisory firm specializing in government relations, public affairs, and political intelligence.</p>
+                    <p style="color: #495057;">The firm supports corporations, nonprofits, investors, and institutions navigating complex governance and regulatory systems across East Africa and the wider African continent. Our team brings together senior experience from government, policy institutions, and the private sector.</p>
+                    <div class="divider"></div>
+                    <p style="color: #495057;"><strong>Emphasizing:</strong> regional expertise · institutional understanding · ethical engagement · strategic advisory capability</p>
+                </div>
+                <div style="background-color: #F1F3F5; padding: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">Our Principles</h3>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; border-left: 2px solid #C4A137;">✓ Discretion — We operate with the confidentiality required at the highest levels.</li>
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; border-left: 2px solid #C4A137;">✓ Expertise — Deep policy knowledge and institutional understanding.</li>
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; border-left: 2px solid #C4A137;">✓ Ethical Engagement — Responsible advocacy respecting democratic processes.</li>
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; border-left: 2px solid #C4A137;">✓ Strategic Insight — Political intelligence combined with practical strategy.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Services -->
+    <section id="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <!-- Political Networking -->
+                <div class="service-card">
+                    <div class="service-icon color-blue">🔷</div>
+                    <h4>Political Networking</h4>
+                    <p>We connect clients with policymakers and institutional stakeholders to build strategic relationships for effective engagement within African governance systems.</p>
+                </div>
+                <!-- Research & Policy Analysis -->
+                <div class="service-card">
+                    <div class="service-icon color-purple">🟣</div>
+                    <h4>Research & Policy Analysis</h4>
+                    <p>In-depth legislative and regulatory research supporting decision-making across East African markets.</p>
+                </div>
+                <!-- Intelligence Gathering -->
+                <div class="service-card">
+                    <div class="service-icon color-orange">🟠</div>
+                    <h4>Intelligence Gathering</h4>
+                    <p>Continuous monitoring of political developments, stakeholder activity, and regulatory changes across the region.</p>
+                </div>
+                <!-- Political Auditing -->
+                <div class="service-card">
+                    <div class="service-icon color-green">🟢</div>
+                    <h4>Political Auditing</h4>
+                    <p>Evaluation of political exposure, compliance posture, and government engagement effectiveness in African jurisdictions.</p>
+                </div>
+                <!-- Parliamentary Drafting -->
+                <div class="service-card">
+                    <div class="service-icon color-red">🔴</div>
+                    <h4>Parliamentary Drafting</h4>
+                    <p>Preparation of bills, amendments, policy briefs, and legislative frameworks aligned with regional parliamentary procedure.</p>
+                </div>
+                <!-- AGS Analytics -->
+                <div class="service-card">
+                    <div class="service-icon color-black">⚫</div>
+                    <h4>AGS Analytics</h4>
+                    <p>Data-driven political analytics for forecasting, stakeholder mapping, and strategic risk modeling across Africa.</p>
+                </div>
+                <!-- Coalitions -->
+                <div class="service-card">
+                    <div class="service-icon color-gold">🟡</div>
+                    <h4>Coalitions & Alliance Building</h4>
+                    <p>Designing and managing multi-stakeholder coalitions that align industry, civil society, and public institutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice Areas -->
+    <section id="practice" style="background-color: white;">
+        <div class="container">
+            <h2>Practice Areas</h2>
+            <div class="practice-grid">
+                <!-- Charities -->
+                <div class="practice-item">
+                    <div class="practice-icon color-gold">🟡</div>
+                    <h4>Charities</h4>
+                    <p>Advocacy strategy, regulatory navigation, and government engagement for nonprofit organizations across East Africa.</p>
+                </div>
+                <!-- Environment -->
+                <div class="practice-item">
+                    <div class="practice-icon color-green">🟢</div>
+                    <h4>Environment</h4>
+                    <p>Sustainability, conservation, climate governance, and environmental regulatory frameworks in African markets.</p>
+                </div>
+                <!-- Public Affairs -->
+                <div class="practice-item">
+                    <div class="practice-icon color-blue">🔵</div>
+                    <h4>Public Affairs</h4>
+                    <p>Strategic communications, stakeholder engagement, and government relations for institutional positioning.</p>
+                </div>
+                <!-- Healthcare -->
+                <div class="practice-item">
+                    <div class="practice-icon color-purple">🟣</div>
+                    <h4>Healthcare</h4>
+                    <p>Policy strategy, regulatory advisory, and legislative engagement across African healthcare systems.</p>
+                </div>
+                <!-- Defense & Critical Tech -->
+                <div class="practice-item">
+                    <div class="practice-icon color-red">🔴</div>
+                    <h4>Defense & Critical Technology</h4>
+                    <p>Advisory on defense policy, emerging technologies, and cybersecurity governance in Africa.</p>
+                </div>
+                <!-- Mining & Energy -->
+                <div class="practice-item">
+                    <div class="practice-icon color-orange">🟠</div>
+                    <h4>Mining & Energy</h4>
+                    <p>Government relations and regulatory strategy for extractives, energy transition, and resource governance.</p>
+                </div>
+                <!-- Intelligence & Investigations -->
+                <div class="practice-item">
+                    <div class="practice-icon color-black">⚫</div>
+                    <h4>Intelligence & Risk</h4>
+                    <p>Political and institutional intelligence, risk assessment, and investigative analysis across the region.</p>
+                </div>
+                <!-- Places of Worship -->
+                <div class="practice-item">
+                    <div class="practice-icon" style="color: #8B6B4D;">🟤</div>
+                    <h4>Places of Worship</h4>
+                    <p>Governance, compliance, land policy, and constructive engagement with government bodies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Approach -->
+    <section>
+        <div class="container">
+            <h2>Our Approach</h2>
+            <div class="approach-steps">
+                <div class="approach-step">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Research</div>
+                    <div class="step-desc">Gather facts and policy context</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Intelligence</div>
+                    <div class="step-desc">Analyze political dynamics</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Strategy</div>
+                    <div class="step-desc">Develop engagement roadmap</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Engagement</div>
+                    <div class="step-desc">Execute influence strategy</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">5</div>
+                    <div class="step-label">Outcomes</div>
+                    <div class="step-desc">Achieve policy results</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Hillway Strategies -->
+    <section style="background-color: white;">
+        <div class="container">
+            <h2>Why Hillway Strategies</h2>
+            <div class="why-grid">
+                <div class="why-item">
+                    <div class="why-icon">🏛️</div>
+                    <h4>Africa-Focused Expertise</h4>
+                    <p>Deep policy knowledge across East African markets</p>
+                </div>
+                <div class="why-item">
+                    <div class="why-icon">📊</div>
+                    <h4>Regional Understanding</h4>
+                    <p>Institutional insight across Kenya, Tanzania, Uganda</p>
+                </div>
+                <div class="why-item">
+                    <div class="why-icon">🤝</div>
+                    <h4>Cross-Border Capability</h4>
+                    <p>Multi-jurisdictional advisory across Africa</p>
+                </div>
+                <div class="why-item">
+                    <div class="why-icon">📈</div>
+                    <h4>Data-Driven Intelligence</h4>
+                    <p>Analytics for strategic decision-making</p>
+                </div>
+                <div class="why-item">
+                    <div class="why-icon">⚖️</div>
+                    <h4>Ethical Engagement</h4>
+                    <p>Responsible government relations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>Start a Strategic Conversation</h2>
+            <div class="contact-grid">
+                <div>
+                    <form class="contact-form">
+                        <input type="text" placeholder="Full Name">
+                        <input type="text" placeholder="Organization">
+                        <input type="email" placeholder="Email Address">
+                        <input type="tel" placeholder="Phone (Optional)">
+                        <textarea placeholder="Tell us about your objectives"></textarea>
+                        <button type="submit" class="btn btn-primary">Send Inquiry</button>
+                    </form>
+                </div>
+                <div>
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <h4>Email</h4>
+                            <p>info@hillwaystrategies.com</p>
+                        </div>
+                        <div class="info-item">
+                            <h4>Telephone</h4>
+                            <p>+254 (0) 20 XXX XXXX</p>
+                            <p style="font-size: 0.9rem; color: #6C757D;">Nairobi · Kenya</p>
+                        </div>
+                        <div class="info-item">
+                            <h4>Regional Offices</h4>
+                            <p>Nairobi · Dar es Salaam · Kampala</p>
+                        </div>
+                    </div>
+                    <div class="confidential-note">
+                        Inquiries are handled with strict discretion. Hillway Strategies works with a select group of institutional clients. Initial consultations are by appointment.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo">HILLWAY STRATEGIES</div>
+                <p style="color: #ADB5BD; font-size: 0.9rem; margin-top: 1rem;">Strategic Government Relations & Political Intelligence across East Africa and the African continent.</p>
+            </div>
+            <div class="footer-links">
+                <h4 style="color: white; margin-bottom: 1rem;">Navigate</h4>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#practice">Practice Areas</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-links">
+                <h4 style="color: white; margin-bottom: 1rem;">Practice Areas</h4>
+                <a href="#">Public Affairs</a>
+                <a href="#">Mining & Energy</a>
+                <a href="#">Healthcare</a>
+                <a href="#">Defense & Critical Tech</a>
+                <a href="#">Intelligence & Risk</a>
+            </div>
+            <div class="footer-links">
+                <h4 style="color: white; margin-bottom: 1rem;">Regional</h4>
+                <a href="#">Kenya</a>
+                <a href="#">Tanzania</a>
+                <a href="#">Uganda</a>
+                <a href="#">East Africa</a>
+                <a href="#">African Continent</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Hillway Strategies. All rights reserved.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">Privacy Policy | Terms of Use | Disclaimers</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Smooth scrolling for anchor links -->
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
