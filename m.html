@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MPoint — One Terminal. Every Network.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0A1628;
+      --navy-mid: #0F1E38;
+      --navy-light: #152444;
+      --teal: #00D4AA;
+      --teal-dim: #00A884;
+      --teal-glow: rgba(0, 212, 170, 0.12);
+      --offwhite: #F5F2ED;
+      --text-muted: rgba(245, 242, 237, 0.55);
+      --text-mid: rgba(245, 242, 237, 0.8);
+      --border: rgba(245, 242, 237, 0.08);
+      --border-teal: rgba(0, 212, 170, 0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--offwhite);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 5vw;
+      background: rgba(10, 22, 40, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      color: var(--offwhite);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--teal); }
+
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--offwhite); }
+
+    .nav-cta {
+      background: var(--teal);
+      color: var(--navy) !important;
+      font-weight: 600 !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .nav-cta:hover { background: var(--teal-dim); transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 5vw 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,212,170,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      max-width: 800px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+
+    .hero-sub {
+      font-size: 1.125rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+    }
+
+    .btn-primary {
+      background: var(--teal);
+      color: var(--navy);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      padding: 0.875rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: var(--teal-dim); transform: translateY(-2px); }
+
+    .btn-ghost {
+      color: var(--offwhite);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.9375rem;
+      padding: 0.875rem 2rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-ghost:hover { border-color: rgba(245,242,237,0.25); transform: translateY(-2px); }
+
+    /* TRANSACTION TICKER */
+    .ticker-wrap {
+      margin-top: 4rem;
+      display: flex; gap: 3rem; flex-wrap: wrap;
+    }
+
+    .ticker-item {
+      display: flex; flex-direction: column; gap: 0.25rem;
+    }
+
+    .ticker-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: -0.02em;
+    }
+
+    .ticker-label {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* NETWORKS BAND */
+    .networks-band {
+      background: var(--navy-mid);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 5vw;
+      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+    }
+
+    .networks-band-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      white-space: nowrap;
+      padding-right: 1.5rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .network-pill {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      border: 1px solid var(--border-teal);
+      color: var(--teal);
+      letter-spacing: 0.02em;
+    }
+
+    /* SECTION BASE */
+    section { padding: 6rem 5vw; }
+
+    .section-eyebrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    /* PROBLEM / SOLUTION */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 3rem;
+    }
+
+    .problem-cell {
+      padding: 2rem;
+      background: var(--navy-mid);
+    }
+
+    .problem-cell.solution { background: var(--navy-light); }
+
+    .problem-cell-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .tag-problem { background: rgba(255,80,80,0.12); color: #FF7070; }
+    .tag-solution { background: var(--teal-glow); color: var(--teal); }
+
+    .problem-cell h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.0625rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .problem-cell p {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    /* FEATURE CARDS */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 3rem;
+    }
+
+    .feature-card {
+      background: var(--navy-mid);
+      padding: 2rem;
+      transition: background 0.2s;
+    }
+
+    .feature-card:hover { background: var(--navy-light); }
+
+    .feature-icon {
+      width: 40px; height: 40px;
+      background: var(--teal-glow);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.1rem;
+    }
+
+    .feature-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.625rem;
+    }
+
+    .feature-card p {
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    /* HOW IT WORKS */
+    .steps {
+      display: flex; flex-direction: column; gap: 0;
+      position: relative; margin-top: 3rem;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 1.5rem;
+      padding-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 35px; top: 48px; bottom: 0;
+      width: 1px;
+      background: var(--border-teal);
+    }
+
+    .step-num {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border-teal);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--teal);
+      flex-shrink: 0;
+      margin-top: 0.125rem;
+    }
+
+    .step-content h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.0625rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-content p {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    /* PILOT */
+    .pilot-box {
+      background: var(--navy-light);
+      border: 1px solid var(--border-teal);
+      border-radius: 16px;
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .pilot-box h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 1rem;
+    }
+
+    .pilot-box p {
+      font-size: 0.9375rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .pilot-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    }
+
+    .pilot-stat { border-left: 2px solid var(--border-teal); padding-left: 1rem; }
+
+    .pilot-stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--teal);
+    }
+
+    .pilot-stat-label {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 7rem 5vw;
+    }
+
+    .cta-section h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      font-size: 1.0625rem;
+      color: var(--text-mid);
+      margin-bottom: 2.5rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 5vw;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+
+    footer .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    footer .logo span { color: var(--teal); }
+
+    footer p {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .pilot-box { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">M<span>Point</span></a>
+    <ul class="nav-links">
+      <li><a href="#problem">The Problem</a></li>
+      <li><a href="#features">Platform</a></li>
+      <li><a href="#pilot">Pilot</a></li>
+      <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">Financial Infrastructure · East Africa</p>
+    <h1>One terminal.<br /><em>Every network.</em></h1>
+    <p class="hero-sub">
+      MPoint gives mobile money agents a single Android POS terminal to serve customers across M-Pesa, Airtel Money, Equitel, and banking networks — eliminating the device sprawl that fragments the last-mile economy.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Request a Demo</a>
+      <a href="#pilot" class="btn-ghost">View Pilot Plan →</a>
+    </div>
+
+    <div class="ticker-wrap">
+      <div class="ticker-item">
+        <span class="ticker-value" id="txn-count">0</span>
+        <span class="ticker-label">Simulated transactions / day</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-value">KES 2.1B</span>
+        <span class="ticker-label">Agent-channel float daily (Kenya)</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-value">4</span>
+        <span class="ticker-label">Networks. One device.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- NETWORKS BAND -->
+  <div class="networks-band">
+    <span class="networks-band-label">Integrated Networks</span>
+    <span class="network-pill">M-Pesa</span>
+    <span class="network-pill">Airtel Money</span>
+    <span class="network-pill">Equitel</span>
+    <span class="network-pill">KCB Bank</span>
+    <span class="network-pill">Equity Bank</span>
+    <span class="network-pill">Co-op Bank</span>
+  </div>
+
+  <!-- PROBLEM / SOLUTION -->
+  <section id="problem">
+    <p class="section-eyebrow">The Problem</p>
+    <h2 class="section-title">Agents run 3–5 devices.<br />We collapse that to one.</h2>
+    <p class="section-sub">Every network requires its own terminal. Agents carry multiple devices, manage separate floats, and lose customers when they can't serve a network. MPoint ends that.</p>
+
+    <div class="problem-grid">
+      <div class="problem-cell">
+        <span class="problem-cell-tag tag-problem">Before MPoint</span>
+        <h3>Device sprawl kills margins</h3>
+        <p>Agents manage 3–5 terminals, each with its own SIM, float, battery, and maintenance cost. Switching between devices mid-transaction drives customers away.</p>
+      </div>
+      <div class="problem-cell solution">
+        <span class="problem-cell-tag tag-solution">With MPoint</span>
+        <h3>One unified terminal</h3>
+        <p>A single Android POS with one interface, one float view, and smart network routing. Agents move faster, serve more customers, and reduce hardware costs by up to 70%.</p>
+      </div>
+      <div class="problem-cell">
+        <span class="problem-cell-tag tag-problem">Before MPoint</span>
+        <h3>Fragmented reconciliation</h3>
+        <p>End-of-day balancing across 5 systems is manual, error-prone, and takes hours. Disputes are hard to trace. Fraud is harder to catch.</p>
+      </div>
+      <div class="problem-cell solution">
+        <span class="problem-cell-tag tag-solution">With MPoint</span>
+        <h3>Unified transaction ledger</h3>
+        <p>Every transaction — regardless of network — flows through MPoint's core ledger with idempotency guarantees, instant reconciliation, and full audit trails.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" style="padding-top: 0;">
+    <p class="section-eyebrow">The Platform</p>
+    <h2 class="section-title">Built on infrastructure-grade foundations</h2>
+    <p class="section-sub">MPoint is not a wrapper. It's a financial operating layer with settlement, compliance, and liquidity management built in.</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>UnifiedAgent SDK</h3>
+        <p>A single API that abstracts Daraja, Airtel Money, Equitel, and bank APIs into one interface. Switch networks without changing your integration.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Idempotent Transactions</h3>
+        <p>Every request carries a unique idempotency key. Retries never double-charge. Network drops never corrupt ledger state.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Real-time Float Monitoring</h3>
+        <p>Agents see live float positions across all networks. Low-float alerts and automated top-up requests reduce downtime and lost transactions.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧾</div>
+        <h3>Outbox Pattern Core</h3>
+        <p>Transactional outbox ensures every committed operation reaches downstream systems — even under network partitions. No silent failures.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Android POS App</h3>
+        <p>Clean, offline-capable kiosk interface built for agents. Works on low-end devices, supports biometric auth, and runs through-the-wall cash terminals.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📐</div>
+        <h3>Compliance Ready</h3>
+        <p>KYC, AML, and CBK reporting hooks built in. Audit-ready transaction records with full chain-of-custody for every float movement.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <p class="section-eyebrow">How It Works</p>
+    <h2 class="section-title">From agent tap to settled ledger</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Customer presents network & amount</h3>
+          <p>The agent selects the customer's preferred network on the MPoint terminal. M-Pesa, Airtel Money, Equitel, or bank — all in one menu.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>MPoint routes to the correct API</h3>
+          <p>The UnifiedAgent core resolves the network, validates float availability, and initiates a Daraja B2C, Airtel, or bank transfer request with an idempotency key.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Outbox commits the transaction</h3>
+          <p>The ledger writes the transaction in the same DB transaction as the outbox event — guaranteeing settlement even if the downstream API call fails or times out.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>Agent float updates in real time</h3>
+          <p>Balances across all networks refresh instantly. End-of-day reconciliation is automatic — no manual tallying, no disputes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILOT -->
+  <section id="pilot">
+    <div class="pilot-box">
+      <div>
+        <p class="section-eyebrow">Nairobi Pilot</p>
+        <h2>10 nodes. The proof that unlocks scale.</h2>
+        <p>MPoint's fundraising milestone is a 10-agent pilot across Nairobi's highest-volume corridors — Westlands, CBD, Eastleigh, Kibera, and Kasarani. 90 days of live data proves unit economics before Series A.</p>
+        <a href="#contact" class="btn-primary">Join the Pilot →</a>
+      </div>
+      <div class="pilot-stats">
+        <div class="pilot-stat">
+          <div class="pilot-stat-num">10</div>
+          <div class="pilot-stat-label">Pilot agent nodes</div>
+        </div>
+        <div class="pilot-stat">
+          <div class="pilot-stat-num">90</div>
+          <div class="pilot-stat-label">Day validation window</div>
+        </div>
+        <div class="pilot-stat">
+          <div class="pilot-stat-num">4</div>
+          <div class="pilot-stat-label">Networks live from day 1</div>
+        </div>
+        <div class="pilot-stat">
+          <div class="pilot-stat-num">KES 50M</div>
+          <div class="pilot-stat-label">Target monthly volume</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <p class="section-eyebrow">Get in Touch</p>
+    <h2>Ready to unify your network?</h2>
+    <p>Whether you're an agent network operator, an investor, or a mobile money partner — let's talk.</p>
+    <a href="mailto:hello@mpointinfra.com" class="btn-primary">hello@mpointinfra.com</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo">M<span>Point</span> Infrastructure</div>
+    <p>© 2025 MPoint Infrastructure Ltd. Nairobi, Kenya.</p>
+  </footer>
+
+  <script>
+    // Animated transaction counter
+    let count = 14280;
+    const el = document.getElementById('txn-count');
+    function fmt(n) {
+      return n.toLocaleString('en-KE');
+    }
+    el.textContent = fmt(count);
+    setInterval(() => {
+      count += Math.floor(Math.random() * 8) + 2;
+      el.textContent = fmt(count);
+    }, 1200);
+  </script>
+</body>
+</html>
